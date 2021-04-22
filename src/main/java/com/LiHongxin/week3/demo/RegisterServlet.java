@@ -34,7 +34,7 @@ public class RegisterServlet extends HttpServlet {
 
 
         try{
-            Statement st=con.createStatement();
+            Statement st=con.createStatement();//
             String sql="insert into usertable ( username,password,email,gender,birthday ) "+
                     " values ('"+username+"','"+password+"','"+email+"','"+gender+"','"+birthday+"'); ";
             System.out.println("sql"+sql);

@@ -1,64 +1,82 @@
 package com.LiHongxin.week5;
 
+import com.LiHongxin.DAO.UserDAO;
+import com.LiHongxin.model.user;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-@WebServlet(name = "LoginServlet", value = "/login")
+@WebServlet(name = "LoginServlet", value = "/Login")
 public class LoginServlet extends HttpServlet {
-    Connection con=null;
-    @Override
+    Connection con = null;
     public void init() throws ServletException{
         super.init();
-        con= (Connection) getServletContext().getAttribute("con");
+        /*try { Class.forName(getServletConfig().getServletContext().getInitParameter("driver"));
+            con = DriverManager.getConnection(getServletConfig().getServletContext().getInitParameter("url"),
+                    getServletConfig().getServletContext().getInitParameter("Username"),
+                    getServletConfig().getServletContext().getInitParameter("Password"));
+        } catch (Exception e) {
+            System.out.println(e); }*/
+        con = (Connection) getServletContext().getAttribute("con");
     }
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter out= response.getWriter();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request,response);
     }
-
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username= request.getParameter("username");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String username = request.getParameter("name");
         String password= request.getParameter("password");
-
+        System.out.println(username + password);
         PrintWriter writer = response.getWriter();
-        writer.println("<br>username :"+username);
-        writer.println("<br>password :"+password);
-        response.setContentType("text/html");
-        PrintWriter out= response.getWriter();
-        String sql="select * from usertable where " +
-                "username=" +"'"+username+"'"+
-                " and " +
-                "password=" +"'"+password+"';";
+        UserDAO userDao = new UserDAO();
         try {
-            Statement st =con.createStatement();
-            ResultSet rs= st.executeQuery(sql);
-            if (rs.next()){
-                out.println("Login Success!!!");
-                out.println("Welcome"+username);
-                request.setAttribute("id",rs.getInt("id"));
-                request.setAttribute("username",rs.getString("username"));
-                request.setAttribute("password",rs.getString("password"));
-                request.setAttribute("email",rs.getString("email"));
-                request.setAttribute("gender",rs.getString("gender"));
-                request.setAttribute("birthdate",rs.getString("birthday"));
+            user user = userDao.findByUsernamePassword(con,username,password);
+            if(user!=null) {
+                request.setAttribute("user",user);
+                request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request,response);
             }
-            else
-            {
-                out.println("Username or Password Error!!!");
+            else {
+                request.setAttribute("message","username or Password Error!!!");
+                request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request,response);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
+        /*
+        try {
+            if( con != null){
+                String sql = "SELECT * FROM usertable WHERE name=? AND password=?;";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1,username);
+                ps.setString(2,password);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    writer.println("Login Success!!!");
+                    writer.println("Welcome "+name+".");
+                    PrintWriter printWriter =response.getWriter();
+                    request.setAttribute("username",rs.getString(1));
+                    request.setAttribute("password",rs.getString(2));
+                    request.setAttribute("email",rs.getString(3));
+                    request.setAttribute("gender",rs.getString(4));
+                    request.setAttribute("birthdate",rs.getString(5));
+                    request.getRequestDispatcher("userInfo.jsp").forward(request,response);
+                }else{
+                    //writer.print("Username or Password Error!!!");
+                    PrintWriter printWriter =response.getWriter();
+                    request.setAttribute("message","Username Or Password Error!!");
+                    request.getRequestDispatcher("login.jsp").forward(request,response);
+                }
+            }
+        }catch (Exception e) {
+            System.out.println(e);
+        }
+        */
     }
-
 }

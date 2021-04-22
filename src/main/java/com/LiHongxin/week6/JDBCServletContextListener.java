@@ -31,6 +31,6 @@ public class JDBCServletContextListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce){
         System.out.println("i am in contextDestroyed()");
-        sce.getServletContext().removeAttribute("con");
+        sce.getServletContext().removeAttribute("con");//
     }
 }
