@@ -1,14 +1,30 @@
 <%--
   Created by IntelliJ IDEA.
-  User: LXXLC
-  Date: 2021/4/8
-  Time: 10:48
+  User: lenovo
+  Date: 2021/4/6
+  Time: 11:21
   To change this template use File | Settings | File Templates.
 --%>
-<%@include file="header.jsp"%>
-<form method="post" action="${pageContext.request.contextPath}/login">
-    <tr><td>Username：<input name="username" type="text"></td></tr>
-    <tr><td>Password：<input name="password" type="password" required placeholder="No less than 8 , No more than 30" pattern=".{8,16}"/></td></tr>
-    <tr><td><input type=submit></td></tr>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>login</title>
+</head>
+<body>
+<%@include file="header.jsp" %>
+<h1>Login<br/> </h1>
+
+<%
+    if(!(request.getAttribute("message") == null)){
+        out.println("<h3>"+request.getAttribute("message")+"</h3>");
+    }
+%>
+
+<form method="post" action="${pageContext.request.contextPath}/Login">
+    <p>Username:<input type="text" name="name"/></p>
+    <p>Password:<input type="password" name="password"/></p>
+    <input type="submit" value="Login"/>
 </form>
-<%@include file="footer.jsp"%>
+<%@include file="footer.jsp" %>
+</body>
+</html>
