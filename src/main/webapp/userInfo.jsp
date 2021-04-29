@@ -1,3 +1,8 @@
+<%@ page import="com.LiHongxin.model.user" %><%--
+  Created by IntelliJ IDEA.
+  User: lenovo
+  Date: 2021/4/12
+  Time: 21:48
 <%@ page import="com.WanZhimin.model.User" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
@@ -14,14 +19,14 @@
 <%@include file="header.jsp"%>
 <h1>UserInfo</h1>
 <%
-    User user = (User) request.getAttribute("user");
+    user u = (user) session.getAttribute("user");
 %>
 <table>
-    <tr><td>Username:</td><td><%=user.getUsername()%></td></tr>
-    <tr><td>Password:</td><td><%=user.getPassword()%></td></tr>
-    <tr><td>Email:</td><td><%=user.getEmail()%></td></tr>
-    <tr><td>Gender:</td><td><%=user.getGender()%></td></tr>
-    <tr><td>Birthdate:</td><td><%=user.getBirthDate()%></td></tr>
+    <tr><td>Username:</td><td><%=u.getUsername()%></td></tr>
+    <tr><td>Password:</td><td><%=u.getPassword()%></td></tr>
+    <tr><td>Email:</td><td><%=u.getEmail()%></td></tr>
+    <tr><td>Gender:</td><td><%=u.getGender()%></td></tr>
+    <tr><td>Birthdate:</td><td><%=u.getBirthDate()%></td></tr>
 </table>
 <%@include file="footer.jsp"%>
 </body>

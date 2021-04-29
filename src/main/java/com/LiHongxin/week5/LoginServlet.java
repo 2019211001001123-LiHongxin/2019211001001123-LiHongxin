@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "LoginServlet", value = "/Login")
+@WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
     Connection con = null;
     public void init() throws ServletException{
@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("name");
+        String username = request.getParameter("username");
         String password= request.getParameter("password");
         System.out.println(username + password);
         PrintWriter writer = response.getWriter();
@@ -39,7 +39,23 @@ public class LoginServlet extends HttpServlet {
         try {
             user user = userDao.findByUsernamePassword(con,username,password);
             if(user!=null) {
-                request.setAttribute("user",user);
+                String rememberMe = request.getParameter("rememberMe");
+                if (rememberMe!=null && rememberMe.equals("1")){
+                    Cookie usernameCookie =new Cookie("cUsername",user.getUsername());
+                    Cookie passwordCookie =new Cookie("cPassword",user.getPassword());
+                    Cookie rememberMeCookie =new Cookie("cRememberMe",rememberMe);
+
+                    usernameCookie.setMaxAge(100);
+                    passwordCookie.setMaxAge(100);
+                    rememberMeCookie.setMaxAge(100);
+                    response.addCookie(usernameCookie);
+                    response.addCookie(passwordCookie);
+                    response.addCookie(rememberMeCookie);
+                }
+                HttpSession session = request.getSession();
+                System.out.println("session id is "+ session.getId());
+                session.setMaxInactiveInterval(10);
+                session.setAttribute("user",user);
                 request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request,response);
             }
             else {

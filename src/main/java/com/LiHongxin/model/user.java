@@ -14,6 +14,10 @@ public class user {
     }
 
     public user(int id, String username, String password, String email, String gender, Date birthDate) {
+
+    }
+
+    public void user(int id, String username, String password, String email, String gender, Date birthDate) {
         this.id = id;
         this.username = username;
         this.password = password;

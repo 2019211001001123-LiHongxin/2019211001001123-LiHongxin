@@ -1,23 +1,30 @@
-package com.LiHongxin.week2.demo;
+package com.LiHongxin.week2;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
-//now its just a java class
-//extend HttpServlet
+
 public class HelloWorldServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest request,HttpServletResponse response)
-    throws IOException{
-        PrintWriter writer=response.getWriter();
-        writer.println("Hello 2019211001001123!!!                  " +
-                "Name:LiHongxin                       " +
-                "ID:2019211001001123");
+    String name="LiHongxin";
+    String ID="2019211001001123";
+
+
+    public void doget (HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        PrintWriter writer = response.getWriter();
+        Date date=new Date();
+        writer.println("Name: "+ name +"<br/>");
+        writer.println("ID: "+ ID +"<br/>");
+        writer.println("Date and Time: "+date.toString()+"<br/>");
     }
-    public void doPost(HttpServletRequest request,HttpServletResponse response){
+
+    public void dopost (HttpServletRequest request, HttpServletResponse response){
 
     }
 }
