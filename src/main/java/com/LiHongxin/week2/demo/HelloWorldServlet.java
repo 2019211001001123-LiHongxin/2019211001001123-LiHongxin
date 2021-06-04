@@ -1,4 +1,4 @@
-package com.LiHongxin.week2;
+package com.LiHongxin.week2.demo;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +11,8 @@ import java.util.Date;
 
 public class HelloWorldServlet extends HttpServlet {
 
-    String name="LiHongxin";
-    String ID="2019211001001123";
+    String name="WanZhimin";
+    String ID="2019211001001003";
 
 
     public void doget (HttpServletRequest request, HttpServletResponse response)

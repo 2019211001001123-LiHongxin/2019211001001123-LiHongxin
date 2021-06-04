@@ -1,4 +1,4 @@
-package com.LiHongxin.week3;
+package com.LiHongxin.week3.demo;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

@@ -1,7 +1,7 @@
 package com.LiHongxin.week5;
 
-import com.LiHongxin.DAO.UserDAO;
-import com.LiHongxin.model.user;
+import com.LiHongxin.dao.UserDao;
+import com.LiHongxin.model.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -35,9 +35,9 @@ public class LoginServlet extends HttpServlet {
         String password= request.getParameter("password");
         System.out.println(username + password);
         PrintWriter writer = response.getWriter();
-        UserDAO userDao = new UserDAO();
+        UserDao userDao = new UserDao();
         try {
-            user user = userDao.findByUsernamePassword(con,username,password);
+            User user = userDao.findByUsernamePassword(con,username,password);
             if(user!=null) {
                 String rememberMe = request.getParameter("rememberMe");
                 if (rememberMe!=null && rememberMe.equals("1")){

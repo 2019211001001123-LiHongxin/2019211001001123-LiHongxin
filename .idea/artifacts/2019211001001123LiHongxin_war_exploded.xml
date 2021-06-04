@@ -1,26 +1,27 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="2019211001001123-LiHongxin:war exploded">
-    <output-path>$PROJECT_DIR$/target/WanZhimin2019211001001003-1.0-SNAPSHOT</output-path>
+  <artifact type="exploded-war" name="2019211001001123LiHongxin:war exploded">
+    <output-path>$PROJECT_DIR$/target/LiHongxin2019211001001123-1.0-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
-        <module>2019211001001123-LiHongxin</module>
+        <module>2019211001001123LiHongxin</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="2019211001001123-LiHongxin" />
+          <element id="module-output" name="2019211001001123LiHongxin" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: com.microsoft.sqlserver:mssql-jdbc:8.2.2.jre8" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/WanZhimin2019211001001003-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/LiHongxin2019211001001123-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="2019211001001123-LiHongxin/web/Web" />
+      <element id="javaee-facet-resources" facet="2019211001001123LiHongxin/web/Web" />
     </root>
   </artifact>
 </component>
